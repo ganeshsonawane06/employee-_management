@@ -1,0 +1,56 @@
+<div class="container-fluid">
+    <app-header></app-header>
+  
+  <br>
+    <div class="row">
+      <div class="col">
+        <button class="btn btn-success" (click)="onaddEmployee()">
+          Add Employee</button>
+
+          <button class="btn btn-warning" (click)="onEdit(PopUp)">Update Employee</button>
+          <br>
+
+
+          <ng-template #PopUp>
+            <app-update-employee [parentdat]="Empobj">
+
+            </app-update-employee>
+            <button (click)="ModalRef.hide()" class="btn btn-danger">Cancel</button>
+            </ng-template>
+
+          <table class="table table-bordered table-hover" style="text-align:center">
+            <thead>
+              <th>#</th>  
+              <th>Action</th>      
+              <th>Name</th>
+              <th>Department</th>
+              <th>Status</th>
+              <th>Created date</th>
+              <th>mobileNumber</th>
+              <th>Country</th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of data;index as i">
+                <td> {{i+1}} </td>
+                <td title="Select Check box to update Employee"> 
+                  <input type="radio" name="radiocheck" (click)="oradioclick(item)"></td>
+                <td> <a [routerLink]="['/EmpDetails',item.employeeId]"> {{item.firstName}} </a></td>
+                <td> {{item.department}} </td>
+                <td> <h5><span [ngClass]="{
+                  'badge':true,'badge-pill':true,
+                  'badge-danger':item.status.toLowerCase()=='suspend',
+                  'badge-success':item.status.toLowerCase()=='active',
+                  'badge-warning':item.status.toLowerCase()=='inactive'
+                }" style="padding: 8px;"> {{item.status}} </span></h5>  </td>
+                <td> {{item.createddtm }} </td>
+                <td> {{item.mobileNumber}} </td>
+                <td> {{item.country.country}} </td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+  
+    </div>
+  
+  
+  </div> 
